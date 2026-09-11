@@ -31,7 +31,9 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     const res = await api.post("/auth/login", { email, password });
+    console.log(res)
     const { token: newToken, user: newUser } = res.data;
+
     setToken(newToken);
     setUser(newUser);
     localStorage.setItem('k12_token', newToken);
