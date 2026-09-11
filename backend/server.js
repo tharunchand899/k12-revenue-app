@@ -11,7 +11,7 @@ const app = express();
 app.use(cors({
   origin: [
     'http://localhost:3000', // Keeps local development working
-    'https://k12-revenue-2buyptm2c-tharunchand899s-projects.vercel.app' // Allows your live Vercel app
+    'https://k12-revenue-app.vercel.app/' // Allows your live Vercel app
   ],
   credentials: true
 }));
