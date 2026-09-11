@@ -4,10 +4,11 @@ import api from '../api/client';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(() => {
-    const saved = localStorage.getItem('k12_user');
-    return saved ? JSON.parse(saved) : null;
-  });
+ const [user, setUser] = useState(() => {
+   const saved = localStorage.getItem("k12_user");
+   // Safely check that it's not the string "undefined" before parsing
+   return saved && saved !== "undefined" ? JSON.parse(saved) : null;
+ });
   const [token, setToken] = useState(() => localStorage.getItem('k12_token') || null);
   const [loading, setLoading] = useState(true);
 
@@ -39,12 +40,30 @@ export const AuthProvider = ({ children }) => {
   };
 
   const register = async (userData) => {
-    const res = await api.post('/auth/register', userData);
-    const { token: newToken, user: newUser } = res.data;
-    setToken(newToken);
-    setUser(newUser);
-    localStorage.setItem('k12_token', newToken);
-    localStorage.setItem('k12_user', JSON.stringify(newUser));
+    const res = await api.post("/auth/register", userData);
+
+    // Safely extract data, falling back to undefined if missing
+    const newToken = res.data?.token;
+    const newUser = res.data?.user;
+
+    // Only set token if it exists
+    if (newToken) {
+      setToken(newToken);
+      localStorage.setItem("k12_token", newToken);
+    }
+
+    // Only set user if it exists
+    if (newUser) {
+      setUser(newUser);
+      localStorage.setItem("k12_user", JSON.stringify(newUser));
+    } else {
+      // Log to help you debug what the backend is actually returning
+      console.warn(
+        "Registration successful, but no user object returned:",
+        res.data,
+      );
+    }
+
     return newUser;
   };
 
