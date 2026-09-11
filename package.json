@@ -1,0 +1,12 @@
+{
+  "name": "k-12-education-revenue-platform",
+  "version": "1.0.0",
+  "private": true,
+  "description": "K-12 Education Revenue & Pricing Intelligence Platform",
+  "scripts": {
+    "seed": "cd backend && node seed.js",
+    "server": "cd backend && node server.js",
+    "client": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build"
+  }
+}
