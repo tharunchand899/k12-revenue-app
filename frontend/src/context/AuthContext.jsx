@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
     const verifyUser = async () => {
       if (token) {
         try {
-          const res = await api.get('/auth/me');
+          const res = await api.get("/auth/me");
           setUser(res.data.user);
           localStorage.setItem('k12_user', JSON.stringify(res.data.user));
         } catch (err) {
@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
   }, [token]);
 
   const login = async (email, password) => {
-    const res = await api.post('/auth/login', { email, password });
+    const res = await api.post("/auth/login", { email, password });
     const { token: newToken, user: newUser } = res.data;
     setToken(newToken);
     setUser(newUser);

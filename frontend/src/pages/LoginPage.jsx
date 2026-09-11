@@ -23,13 +23,15 @@ const LoginPage = () => {
     }
 
     try {
-      setError('');
+      setError("");
       setLoading(true);
       await login(email, password);
-      navigate('/dashboard');
+      navigate("/dashboard");
     } catch (err) {
-      console.error(err);
-      setError(err.response?.data?.error || 'Authentication failed. Please check credentials.');
+      // Extract the string message safely
+      const errorMessage =
+        err.response?.data?.message || err.message || "Login failed";
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
