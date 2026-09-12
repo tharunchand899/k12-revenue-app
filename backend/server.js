@@ -28,7 +28,7 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
 
-app.options('*', cors());
+app.options('*splat', cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
